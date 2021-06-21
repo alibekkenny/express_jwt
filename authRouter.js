@@ -1,6 +1,7 @@
 const Router = require('express');
 const controller = require('./authController');
-const {check} = require('express-validator')
+const {check} = require('express-validator');
+const roleMiddleware = require('./middleware/roleMiddleware')
 const router = new Router();
 
 router.post('/registration', [
@@ -8,6 +9,6 @@ router.post('/registration', [
     check('password',"error: password must be between 6-12").isLength({min:6, max: 12})
 ], controller.registration);
 router.post('/login', controller.login);
-router.get('/users', controller.getUsers)
+router.get('/secret', roleMiddleware(["ADMIN"]), controller.getSecret)
 
 module.exports = router

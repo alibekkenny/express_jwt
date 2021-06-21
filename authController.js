@@ -10,7 +10,7 @@ const generateAccessToken = (id, roles) => {
         id,
         roles
     }
-    return jwt.sign(payload,secret,{expiresIn:24})
+    return jwt.sign(payload,secret,{expiresIn:"1h"})
 }
 
 class authController {
@@ -56,13 +56,9 @@ class authController {
         }
     }
 
-    async getUsers(req, res) {
+    async getSecret(req, res) {
         try {
-            // const userRole = new Role();
-            // const adminRole = new Role({ value: 'ADMIN' });
-            // await userRole.save();
-            // await adminRole.save();
-            res.send({ message: 'ok' })
+            res.send({msg:"secret 42"})
         } catch (e) {
             console.log(e);
             res.status(400).send({message: 'some error'})
